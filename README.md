@@ -25,3 +25,15 @@ Zadania starałem się posortować po poziomie trudności.
 4. W klasie CitizensApplication napisz metodę, która policzy osoby mogące ubiegać się o emeryturę (60 lat dla kobiet oraz 65 dla mężczyzn)
 5. Utworzone metody (oraz jedną istniejącą) wydziel do nowej klasy - jak nazwiesz tę klasę?
 6. Korzystając ze Stream API, spróbuj przepisać metody w nowej, wydzielonej klasie tak, aby miały jak najmniejszą objętość. Możesz posiłkować się wydzielaniem zagnieżdżonych metod.
+7. W konstruktorze klasy Person jest tworzony obiekt typu SimpleDateFormat. Jest to kosztowna operacja, spróbuj więc jakoś zoptymalizować to miejsce. Po przetworzeniu wyników wyświetlany jest czas wykonywania konwersji - po prostej optymalizacji na moim komputerze udało przyśpieszyć się ten proces o połowę.
+8. Zaimplementuj wzorzec Builder dla klasy Person.
+9. Dodaj walidację wczytanych danych klasy Person:
+   - Imię nie może być puste oraz nie może być krótsze niż 2 znaki
+   - Nazwisko nie może być puste oraz nie może być krótsze niż 2 znaki
+   - Płeć musi zawierać tylko jeden z następujących znaków: "F" albo "M"
+   - Data urodzenia nie może być z przyszłości
+   - Osoba musi być pełnoletnia
+   
+    Niepoprawne wyniki odrzuć.
+10. Zaimplementuj klasę Animal - niech zawiera imię oraz gatunek zwierzęcia. Dodaj listę posiadanych zwierząt do klasy Person.
+11. Napisz klasę AnimalReader, która będzie odczytywała plik animal.csv
