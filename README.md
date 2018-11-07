@@ -37,3 +37,17 @@ Zadania starałem się posortować po poziomie trudności.
     Niepoprawne wyniki odrzuć.
 10. Zaimplementuj klasę Animal - niech zawiera imię oraz gatunek zwierzęcia. Dodaj listę posiadanych zwierząt do klasy Person.
 11. Napisz klasę AnimalReader, która będzie odczytywała plik animal.csv
+12. Policz, ile jest zwierząt każdego z gatunków
+13. Znajdź wszystkie osoby, które mają conajmniej 2 zwierzęta
+14. Przepisz walidację wczytywanych danych tak, aby używała wzorca projektówego (odpowiedni wzorzec był omawiany na prezentacji)
+15. Dopisz do klas CsvFile oraz CsvLine metody umożliwiające zapis pliku CSV na dysku
+16. Wygeneruj plik z danymi osób, które nie przeszły walidacji (taki sam rekord jak w pliku wejściowym), dodając do niego informację o powodzie odrzucenia
+17. Wczytaj plik person.csv oraz animal.csv, a następnie zapisz plik wynikowy, który będzie zawierał:
+	- ID osoby
+	- Imię
+	- Utajnione nazwisko: Pierwsza litera nazwiska, pięć znaków `*`, ostatnia litera nazwiska (`Kowalski` -> `K*****i`; `Nowak` -> `N*****k`)
+	- wiek w przybliżeniu do pięciu lat (osoby w wieku 23,24,25,26,27 są grupowane do 25 lat, osoby w wieku 28,29,30,31,32 są grupowane do wieku 30 lat, itd.)
+	- ilość psów posiadanych przez osobę
+	- ilość kotów posiadanych przez osobę
+	- ilość papug posiadanych przez osobę
+	- ilość rybek posiadanych przez osobę
