@@ -22,7 +22,7 @@ public class CitizensApplication {
         File personFile = new File(getClass().getClassLoader().getResource("person.csv").getFile());
         List<Person> people = personReader.readFromFile(personFile);
 
-        Map<String, Long> nameSummary = createNameSummary(people);
+//        Map<String, Long> nameSummary = createNameSummary(people);
         // sample: how to print results to the console
 //        for (Map.Entry<String, Long> nameCount : nameSummary.entrySet()) {
 //            System.out.println("There are " + nameCount.getValue() + " persons with name " + nameCount.getKey());

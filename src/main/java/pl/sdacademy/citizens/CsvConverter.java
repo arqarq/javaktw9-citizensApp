@@ -4,6 +4,7 @@ import pl.sdacademy.citizens.model.CsvFile;
 import pl.sdacademy.citizens.model.CsvLine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
@@ -26,18 +27,57 @@ public class CsvConverter<T> {
             return csvFile.getLineAt(lineNumber);
         };
 
-        List<T> results = new ArrayList<>();
+        List<T> results = Collections.synchronizedList(new ArrayList<>());
 
-        CsvLine lineToConvert;
-        while ((lineToConvert = lineSupplier.get()) != null) {
-            T mappedResult = mappingFunction.apply(lineToConvert);
-            results.add(mappedResult);
+        int threadCount = Runtime.getRuntime().availableProcessors() - 1;
+        System.out.println(threadCount);
+        List<Thread> workerThread = new ArrayList<>();
+        for (int threadNo = 0; threadNo < threadCount; threadNo++) {
+            Runnable task = new ConverterWorker(lineSupplier, mappingFunction, results);
+            Thread thread = new Thread(task);
+            workerThread.add(thread);
         }
-//        List<CsvLine> allCsvLines = csvFile.getLines();
+        workerThread.forEach(Thread::start);
+        workerThread.forEach((thread) -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+//2       CsvLine lineToConvert;
+//        while ((lineToConvert = lineSupplier.get()) != null) {
+//            T mappedResult = mappingFunction.apply(lineToConvert);
+//            results.add(mappedResult);
+//        }
+
+//1       List<CsvLine> allCsvLines = csvFile.getLines();
 //        for (CsvLine csvLine : allCsvLines) {
 //            T mappedResult = mappingFunction.apply(csvLine);
 //            results.add(mappedResult);
 //        }
         return results;
+    }
+
+    private class ConverterWorker implements Runnable {
+        private final Supplier<CsvLine> lineSupplier;
+        private final Function<CsvLine, T> converter;
+        private final List<T> results;
+
+        private ConverterWorker(Supplier<CsvLine> lineSupplier, Function<CsvLine, T> converter, List<T> results) {
+            this.lineSupplier = lineSupplier;
+            this.converter = converter;
+            this.results = results;
+        }
+
+        @Override
+        public void run() {
+            CsvLine lineToConvert;
+            while ((lineToConvert = lineSupplier.get()) != null) {
+                T mappedResult = converter.apply(lineToConvert);
+                results.add(mappedResult);
+            }
+        }
     }
 }
