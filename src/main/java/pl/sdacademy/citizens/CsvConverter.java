@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class CsvConverter<T> {
     private final CsvFile csvFile;
@@ -19,6 +20,13 @@ public class CsvConverter<T> {
         this.csvFile = csvFile;
         this.mappingFunction = mappingFunction;
         lineCounter = new AtomicInteger(0);
+    }
+
+    public List<T> convertUltraSimpleAndFastInJava() {
+//        return csvFile.getLines().stream()
+        return csvFile.getLines().parallelStream()
+                .map(mappingFunction)
+                .collect(Collectors.toList());
     }
 
     public List<T> convert() {

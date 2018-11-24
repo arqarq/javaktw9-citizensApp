@@ -29,7 +29,8 @@ public class PersonReader {
             }
         };
         CsvConverter<Person> converter = new CsvConverter<>(csvLines, mappingFunction);
-        return converter.convert();
+//        return converter.convert();
+        return converter.convertUltraSimpleAndFastInJava();
 
 //        List<Person> persons = new ArrayList<>();
 //        for (CsvLine csvLine : csvLines) {
