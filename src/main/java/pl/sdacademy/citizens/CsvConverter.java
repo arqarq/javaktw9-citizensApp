@@ -37,7 +37,7 @@ public class CsvConverter<T> {
 
         List<T> results = Collections.synchronizedList(new ArrayList<>());
 
-        int threadCount = Runtime.getRuntime().availableProcessors() - 1;
+        int threadCount = Runtime.getRuntime().availableProcessors();
         System.out.println(threadCount);
         List<Thread> workerThread = new ArrayList<>();
         for (int threadNo = 0; threadNo < threadCount; threadNo++) {
